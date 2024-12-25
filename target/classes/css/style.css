@@ -1,0 +1,16 @@
+.anchorpane{
+-fx-background-color: #292929;
+}
+
+.hboxPersonaje{
+-fx-padding: 5;
+}
+
+.hboxPersonaje:hover{
+-fx-border-width: 2;
+-fx-border-color: yellow;
+}
+
+.hboxAcciones{
+-fx-padding: 10;
+}
