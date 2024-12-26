@@ -3,9 +3,12 @@ package mar.tecrpg;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import mar.tecrpg.Enemies.Enemigo;
 import mar.tecrpg.clases.Personaje;
 
 import java.io.IOException;
@@ -19,8 +22,11 @@ public class accionesController {
     private StackPane stackPane;
 
     private Personaje personaje;
+    private Enemigo enemigo;
 
     private Label label;
+
+    private Label enemyStats, characterStats;
 
     private int numero;
 
@@ -36,9 +42,15 @@ public class accionesController {
         this.personaje = personaje;
     }
 
+    public void setEnemigo(Enemigo enemigo){ this.enemigo = enemigo; }
+
     public void setLabel(Label label){
         this.label = label;
     }
+
+    public void setEnemyStats(Label label){ this.enemyStats = label; }
+
+    public void setCharacterStats(Label label){ this.characterStats = label; }
 
     public void setNumero(int numero){
         this.numero = numero;
@@ -51,17 +63,22 @@ public class accionesController {
         controller = loader.getController();
         controller.setStackPane(stackPane);
         controller.setPersonaje(personaje);
+        controller.setCharacterStats(characterStats);
+        controller.setEnemyStats(enemyStats);
+        controller.setEnemigo(enemigo);
+        controller.setNumero(numero);
         stackPane.getChildren().setAll(nuevaVista);
     }
 
     @FXML
     private void huir() throws IOException{
 
-        int dexEnemigo = 6; //enemigo.getDestreza();
-        int dexPlayer = personaje.getDestreza();
+        //int enemyEvasion = enemigo.getEvasion();
+        int enemyEvasion = 10;
+        int playerEvasioin = personaje.getEvasion();
         int n;
 
-        if(dexEnemigo < dexPlayer){
+        if(enemyEvasion < playerEvasioin){
             n = 1;
         }else{
             n = random.nextInt(2) + 1;
@@ -72,9 +89,32 @@ public class accionesController {
             label.setText("Enfrentamiento "+numero);
             System.out.println("huiste");
         }else {
-            System.out.println("no huiste");
+            int damage = personaje.takeDamage(enemigo.dealDamage());
+            System.out.println("no huiste.");
+            if(damage == 0){
+                System.out.println("El ataque fallo");
+            }else {
+                System.out.println("El enemigo te hizo " + damage + " de daño.");
+                updateCharacterStats();
+            }
         }
 
+    }
+
+    private void updateCharacterStats() throws IOException {
+        String stat = "Lvl: "+personaje.getNivel()+"     HP: "+personaje.getHp()+"     Exp: "+personaje.getExp();
+        characterStats.setText(stat);
+        if(personaje.getHp() <= 0){
+            FXMLLoader fxmlLoader = new FXMLLoader(firstController.class.getResource("/gameOver.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setMaximized(false);
+            stage.setResizable(false);
+            Stage stg = (Stage) btn.getScene().getWindow();
+            stg.close();
+            stage.show();
+        }
     }
 
 

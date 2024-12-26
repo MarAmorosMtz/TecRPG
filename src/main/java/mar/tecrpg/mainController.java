@@ -4,7 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import mar.tecrpg.Enemies.Enemigo;
+import mar.tecrpg.Enemies.Guardia;
 import mar.tecrpg.attaks.Movimiento;
 import mar.tecrpg.clases.Personaje;
 
@@ -14,23 +18,44 @@ import java.util.List;
 public class mainController {
 
     Personaje personaje;
+    Enemigo enemy;
 
     List<Movimiento>  movimientos;
 
     int numeroenfrentamiento;
 
     @FXML
-    Label stats, enfrentamiento;
+    Label stats, enfrentamiento, enemyStats;
     @FXML
     StackPane stack;
+    @FXML
+    ImageView enemyImage;
 
     accionesController controller;
 
     @FXML
     public void initialize() throws IOException {
-        numeroenfrentamiento = 1;
+        if (numeroenfrentamiento == 0){
+            numeroenfrentamiento = 1;
+        }
         enfrentamiento.setText("Enfrentamiento "+numeroenfrentamiento);
         cargarVista("/acciones.fxml");
+
+        if (numeroenfrentamiento == 1){
+            enemy = new Guardia();
+            enemyImage.setFitHeight(400);
+            enemyImage.setFitWidth(400);
+            enemyImage.setPreserveRatio(true);
+            String imageUrl = "file:" + enemy.getSprite();
+            enemyImage.setImage(new Image(imageUrl));
+        }else{
+            System.out.println("holis perrillo");
+            updateEnemy();
+        }
+
+        String stat = enemy.getNombre() + "     HP: " + enemy.getHp() + "     Def: " + enemy.getDefensa() + "     Evasion: " + enemy.getEvasion();
+        enemyStats.setText(stat);
+
     }
 
     public void cargarVista(String fxmlPath) throws IOException {
@@ -53,5 +78,16 @@ public class mainController {
         controller.setPersonaje(personaje);
         controller.setNumero(numeroenfrentamiento);
         controller.setLabel(enfrentamiento);
+        controller.setEnemigo(enemy);
+        controller.setCharacterStats(stats);
+        controller.setEnemyStats(enemyStats);
+    }
+
+    public  void setNumero(int numero){
+        this.numeroenfrentamiento = numero;
+    }
+
+    public void updateEnemy(){
+        enemy = new Guardia();
     }
 }

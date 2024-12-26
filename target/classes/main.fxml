@@ -23,12 +23,12 @@
                   <Font name="Baskerville Old Face" size="30.0" />
                </font>
             </Label>
-            <ImageView fitHeight="316.0" fitWidth="375.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="316.0" fitWidth="375.0" pickOnBounds="true" preserveRatio="true" fx:id="enemyImage">
                <image>
-                  <Image url="@media/guardia1.jpg" />
+                  <!--Image url="@media/guardia1.jpg" /-->
                </image>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="TOP" prefHeight="56.0" prefWidth="563.0" text="Guardia: HP: 0     Att: 0     Dex: 0" textFill="WHITE" wrapText="true">
+            <Label alignment="CENTER" contentDisplay="TOP" prefHeight="56.0" prefWidth="563.0" textFill="WHITE" wrapText="true" fx:id="enemyStats">
                <font>
                   <Font name="Baskerville Old Face" size="30.0" />
                </font>

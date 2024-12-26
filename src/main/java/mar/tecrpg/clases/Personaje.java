@@ -4,9 +4,14 @@ import mar.tecrpg.attaks.Movimiento;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Personaje {
     private int nivel, inteligencia, fuerza, destreza, fe, vitalidad, exp, hp, expmax, evasion, defensa;
+
+    private Random random = new Random();
+
+    private String sprite;
 
     private List<Movimiento> movimientos = new ArrayList<>();
 
@@ -72,9 +77,22 @@ public class Personaje {
 
     public void setHP(int hp){ this.hp = hp; }
 
-    public void dealDamage(int id){}
+    public Movimiento dealDamage(int id){
+        return movimientos.get(id);
+    }
 
-    public void takeDamage(){}
+    public int takeDamage(Movimiento mov){
+
+        int damagePhysical = (int)(mov.getDamagefisico() - (Double)(this.defensa * 0.2));
+        int damageSpecial = (int)(mov.getDamageesp() - (Double)(this.defensa * 0.2));
+        int damageTotal = damagePhysical + damageSpecial;
+
+        if(mov.getAcurate() > this.evasion){
+            this.hp -= damageTotal;
+            return damageTotal;
+        }
+        return 0;
+    }
 
     public void levelUp(){
         nivel++;

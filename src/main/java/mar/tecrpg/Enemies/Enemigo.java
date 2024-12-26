@@ -2,9 +2,18 @@ package mar.tecrpg.Enemies;
 
 import mar.tecrpg.attaks.Movimiento;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Enemigo {
+
     private int hp, evasion, defensa, xp;
     private String nombre, sprite;
+
+    private Random random = new Random();
+
+    private List<Movimiento> movimientos = new ArrayList<>();
 
     public Enemigo(String nombre, int hp, int evasion, int defensa, int xp, String sprite){
         this.nombre = nombre;
@@ -15,17 +24,27 @@ public class Enemigo {
         this.sprite = sprite;
     }
 
-    private int getHp(){ return hp; }
+    public void addMov(Movimiento movimiento){
+        if(movimientos.size() <= 3){
+            movimientos.add(movimiento);
+        }
+    }
 
-    private int getEvasion(){ return evasion; }
+    public List<Movimiento> getMoves(){
+        return movimientos;
+    }
 
-    private int getDefensa(){ return defensa; }
+    public int getHp(){ return hp; }
 
-    private int getXp(){ return xp; }
+    public int getEvasion(){ return evasion; }
 
-    private String getNombre(){ return nombre; }
+    public int getDefensa(){ return defensa; }
 
-    private String getSprite(){ return sprite; }
+    public int getXp(){ return xp; }
+
+    public String getNombre(){ return nombre; }
+
+    public String getSprite(){ return sprite; }
 
     public void setHp(int hp) {
         this.hp = hp;
@@ -51,10 +70,21 @@ public class Enemigo {
         this.sprite = sprite;
     }
 
-    public boolean takeDamage(Movimiento mov){
-        return true;
+    public int takeDamage(Movimiento mov){
+        int damagePhysical = (int)(mov.getDamagefisico() - (Double)(this.defensa * 0.2));
+        int damageSpecial = (int)(mov.getDamageesp() - (Double)(this.defensa * 0.2));
+        int damageTotal = damagePhysical + damageSpecial;
+
+        if(mov.getAcurate() > this.evasion){
+            this.hp -= damageTotal;
+            return damageTotal;
+        }
+        return 0;
     }
 
-    public void dealDamage(){}
+    public Movimiento dealDamage(){
+        int i = random.nextInt(movimientos.size()) ;
+        return movimientos.get(i);
+    }
 
 }
