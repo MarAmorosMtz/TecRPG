@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Glow?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -11,29 +10,29 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="894.0" prefWidth="811.0" styleClass="anchorpane" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mar.tecrpg.mainController">
    <children>
-      <Label fx:id="enfrentamiento" text="Enfrentamiento 1" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label fx:id="enfrentamiento" prefHeight="44.0" prefWidth="344.0" text="Enfrentamiento 1" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
-            <Font name="Baskerville Old Face" size="20.0" />
+            <Font name="Baskerville Old Face" size="30.0" />
          </font>
       </Label>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Semestre 1" textFill="#fff600">
                <font>
-                  <Font name="Baskerville Old Face" size="30.0" />
+                  <Font name="Baskerville Old Face" size="38.0" />
                </font>
             </Label>
-            <ImageView fitHeight="316.0" fitWidth="375.0" pickOnBounds="true" preserveRatio="true" fx:id="enemyImage">
+            <ImageView fx:id="enemyImage" fitHeight="316.0" fitWidth="375.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <!--Image url="@media/guardia1.jpg" /-->
                </image>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="TOP" prefHeight="56.0" prefWidth="563.0" textFill="WHITE" wrapText="true" fx:id="enemyStats">
+            <Label fx:id="enemyStats" alignment="CENTER" contentDisplay="TOP" prefHeight="56.0" prefWidth="563.0" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="Baskerville Old Face" size="30.0" />
                </font>
             </Label>
-            <StackPane fx:id="stack" prefHeight="371.0" prefWidth="811.0" />
+            <StackPane fx:id="stack" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="371.0" prefWidth="811.0" />
             <Label fx:id="stats" alignment="CENTER" contentDisplay="TOP" prefHeight="56.0" prefWidth="563.0" text="Tú: Lvl: 1     HP: 0     Exp: 0" textFill="#ffaa00" wrapText="true">
                <font>
                   <Font name="Baskerville Old Face" size="30.0" />

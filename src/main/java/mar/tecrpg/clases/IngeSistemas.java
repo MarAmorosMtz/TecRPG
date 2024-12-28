@@ -1,6 +1,7 @@
 package mar.tecrpg.clases;
 
 import mar.tecrpg.attaks.RamAttak;
+import mar.tecrpg.attaks.Volovan;
 
 public class IngeSistemas extends Personaje{
     public IngeSistemas(){

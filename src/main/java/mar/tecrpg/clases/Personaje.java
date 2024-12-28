@@ -1,6 +1,7 @@
 package mar.tecrpg.clases;
 
 import mar.tecrpg.attaks.Movimiento;
+import mar.tecrpg.attaks.Volovan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,17 @@ public class Personaje {
 
     public void setHP(int hp){ this.hp = hp; }
 
+    public int heal(int id){
+        if(movimientos.get(id).getHeal() != 0){
+            int cura = movimientos.get(id).getHeal();
+            this.hp += cura;  // Aumentamos la salud del personaje directamente
+            return cura;
+        }else{
+            return 0;
+        }
+    }
+
+
     public Movimiento dealDamage(int id){
         return movimientos.get(id);
     }
@@ -113,6 +125,14 @@ public class Personaje {
         }
         levelUp();
         setExp(temp);
+        learn();
     }
+
+    public void learn(){
+        if (this.getNivel() == 3){
+            Volovan volo = new Volovan();
+            addMov(volo);
+        }
+    };
 
 }

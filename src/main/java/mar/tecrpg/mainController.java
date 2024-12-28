@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import mar.tecrpg.Enemies.Enemigo;
 import mar.tecrpg.Enemies.Guardia;
+import mar.tecrpg.Enemies.PinaOrtiz;
 import mar.tecrpg.attaks.Movimiento;
 import mar.tecrpg.clases.Personaje;
 
@@ -35,6 +36,8 @@ public class mainController {
 
     accionesController controller;
 
+    infoController controlInfo;
+
     @FXML
     public void initialize() throws IOException {
         if (numeroenfrentamiento == 0){
@@ -44,17 +47,12 @@ public class mainController {
 
         cargarVista("/acciones.fxml");
 
-        if (numeroenfrentamiento == 1){
-            enemy = new Guardia();
-            enemyImage.setFitHeight(400);
-            enemyImage.setFitWidth(400);
-            enemyImage.setPreserveRatio(true);
-            String imageUrl = "file:" + enemy.getSprite();
-            enemyImage.setImage(new Image(imageUrl));
-        }else{
-            System.out.println("holis perrillo");
-            updateEnemy();
-        }
+        enemy = new Guardia();
+        enemyImage.setFitHeight(350);
+        enemyImage.setFitWidth(350);
+        enemyImage.setPreserveRatio(true);
+        String imageUrl = "file:" + enemy.getSprite();
+        enemyImage.setImage(new Image(imageUrl));
 
         String stat = enemy.getNombre() + "     HP: " + enemy.getHp() + "     Def: " + enemy.getDefensa() + "     Evasion: " + enemy.getEvasion();
         enemyStats.setText(stat);
@@ -89,7 +87,18 @@ public class mainController {
     }
 
     public void updateEnemy() {
-        this.enemy = new Guardia();
+        if (numeroenfrentamiento % 5 == 0){
+            // random boss
+            this.enemy = new PinaOrtiz();
+        }else{
+            // random mob
+            this.enemy = new Guardia();
+        }
+        enemyImage.setFitHeight(350);
+        enemyImage.setFitWidth(350);
+        enemyImage.setPreserveRatio(true);
+        String imageUrl = "file:" + enemy.getSprite();
+        enemyImage.setImage(new Image(imageUrl));
         String stat = enemy.getNombre() + "     HP: " + enemy.getHp() + "     Def: " + enemy.getDefensa() + "     Evasion: " + enemy.getEvasion();
         enemyStats.setText(stat);
 
@@ -101,8 +110,14 @@ public class mainController {
 
     public void setControlPrincipal(mainController control){
         this.controlPrincipal = control;
-        System.out.println("set control principal desde main");
-        System.out.println(control);
         controller.setControlPrincipal(controlPrincipal);
+    }
+
+    public void setControlInfo(infoController control){
+        this.controlInfo = control;
+    }
+
+    public void setInfo(String str){
+        controlInfo.addInfo(str);
     }
 }

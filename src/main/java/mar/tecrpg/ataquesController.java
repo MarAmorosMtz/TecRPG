@@ -96,18 +96,24 @@ public class ataquesController {
 
     public void attack(int id) throws IOException {
         int damageDeal = enemigo.takeDamage(personaje.dealDamage(id));
-        if (damageDeal == 0) {
-            System.out.println("Tu ataque falló");
-        } else {
-            System.out.println("Tu ataque le hizo " + damageDeal + " de daño al enemigo.");
-            updateEnemyStats();
+        int heal = personaje.heal(id);
+        if(heal != 0){
+            control.setInfo("Has recuperado " + heal + " de salud");
+            updateCharacterStats();
+        }else {
+            if (damageDeal == 0) {
+                control.setInfo("Tu ataque ha fallado");
+            } else {
+                control.setInfo("Tu ataque ha hecho " + damageDeal + " de daño al enemigo.");
+                updateEnemyStats();
+            }
         }
 
         int damageTaken = personaje.takeDamage(enemigo.dealDamage());
         if (damageTaken == 0) {
-            System.out.println("El ataque enemigo falló");
+            control.setInfo("El ataque enemigo ha fallado");
         } else {
-            System.out.println("El enemigo te hizo " + damageTaken + " de daño.");
+            control.setInfo("El enemigo te ha hecho " + damageTaken + " de daño.");
             updateCharacterStats();
         }
 
@@ -164,6 +170,9 @@ public class ataquesController {
             personaje.expUp(enemigo.getXp());
             numero++;
             enfrentamiento.setText("Enfrentamiento " + numero);
+
+            control.setInfo("Has vencido al enemigo.");
+            control.setInfo("Has ganado " + enemigo.getXp() + " puntos de experiencia.");
 
             control.setNumero(numero);
             control.updateEnemy();

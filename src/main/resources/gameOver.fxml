@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="anchorpane" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="anchorpane" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mar.tecrpg.gameOverController">
    <children>
       <Label layoutX="78.0" layoutY="147.0" text="YOU DIED" textFill="#a10000" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="147.0">
          <font>
@@ -17,6 +17,6 @@
             <Glow level="1.0" />
          </effect>
       </Label>
-      <Button layoutX="459.0" layoutY="334.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="108.0" text="Reintentar" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="33.0" />
+      <Button fx:id="btn" layoutX="459.0" layoutY="334.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="108.0" text="Reintentar" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="33.0"  onAction="#reintentar" />
    </children>
 </AnchorPane>

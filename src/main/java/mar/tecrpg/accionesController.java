@@ -91,21 +91,19 @@ public class accionesController {
         if (n == 1) {
             numero++;
             label.setText("Enfrentamiento " + numero);
-            System.out.println("huiste");
+            controlPrincipal.setInfo("Has logrado huir");
 
-            // Actualizar enemigo en el controlador principal
             controlPrincipal.setNumero(numero);
             controlPrincipal.updateEnemy();
 
-            // Actualizar la referencia del nuevo enemigo en este controlador
             this.enemigo = controlPrincipal.enemy;
         } else {
             int damage = personaje.takeDamage(enemigo.dealDamage());
-            System.out.println("no huiste.");
+            controlPrincipal.setInfo("No has logrado huir");
             if (damage == 0) {
-                System.out.println("El ataque falló");
+                controlPrincipal.setInfo("El ataque enemigo ha fallado");
             } else {
-                System.out.println("El enemigo te hizo " + damage + " de daño.");
+                controlPrincipal.setInfo("El enemigo te hizo " + damage + " de daño.");
                 updateCharacterStats();
             }
         }

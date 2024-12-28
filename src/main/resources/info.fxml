@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="489.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mar.tecrpg.infoController">
+   <content>
+      <Label fx:id="infoLabel" alignment="BOTTOM_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Informacion del Combate:" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Baskerville Old Face" size="25.0" />
+         </font>
+         <effect>
+            <Glow level="0.4" />
+         </effect>
+      </Label>
+   </content>
+</ScrollPane>

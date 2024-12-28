@@ -14,3 +14,16 @@
 .hboxAcciones{
 -fx-padding: 10;
 }
+
+.scroll-pane {
+    -fx-background: #292929;
+    -fx-background-color: #292929;
+    -fx-border-color: #292929;
+    -fx-border-width: 2;
+    -fx-padding: 10;
+}
+
+.scroll-pane .viewport {
+    -fx-background: #292929;
+}
+
