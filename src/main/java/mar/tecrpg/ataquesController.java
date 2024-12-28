@@ -28,7 +28,7 @@ public class ataquesController {
 
     private StackPane stackPane;
 
-    private Label enemyStats, characterStats;
+    private Label enemyStats, characterStats, enfrentamiento;
 
     accionesController controller;
 
@@ -46,6 +46,8 @@ public class ataquesController {
     public void setNumero(int numero){
         this.numero = numero;
     }
+
+    public void setEnfrentamiento(Label label){ this.enfrentamiento = label; }
 
     private void cargarMoves(){
 
@@ -94,22 +96,20 @@ public class ataquesController {
 
     public void attack(int id) throws IOException {
         int damageDeal = enemigo.takeDamage(personaje.dealDamage(id));
-        if(damageDeal == 0){
-            System.out.println("Tu ataque fallo");
-        }else {
+        if (damageDeal == 0) {
+            System.out.println("Tu ataque falló");
+        } else {
             System.out.println("Tu ataque le hizo " + damageDeal + " de daño al enemigo.");
             updateEnemyStats();
         }
 
         int damageTaken = personaje.takeDamage(enemigo.dealDamage());
-        if(damageTaken == 0){
-            System.out.println("El ataque enemigo fallo");
-        }else {
+        if (damageTaken == 0) {
+            System.out.println("El ataque enemigo falló");
+        } else {
             System.out.println("El enemigo te hizo " + damageTaken + " de daño.");
             updateCharacterStats();
         }
-        updateCharacterStats();
-        updateEnemyStats();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/acciones.fxml"));
         Parent nuevaVista = loader.load();
@@ -118,10 +118,16 @@ public class ataquesController {
         controller.setPersonaje(personaje);
         controller.setCharacterStats(characterStats);
         controller.setEnemyStats(enemyStats);
-        controller.setEnemigo(enemigo);
+
+        // Asegúrate de usar la referencia actualizada del enemigo
+        controller.setEnemigo(control.enemy);
+
         controller.setNumero(numero);
+        controller.setLabel(enfrentamiento);
+        controller.setControlPrincipal(control);
         stackPane.getChildren().setAll(nuevaVista);
     }
+
 
     public void setPersonaje(Personaje personaje){
         this.personaje = personaje;
@@ -157,23 +163,18 @@ public class ataquesController {
         if(enemigo.getHp() <= 0){
             personaje.expUp(enemigo.getXp());
             numero++;
+            enfrentamiento.setText("Enfrentamiento " + numero);
 
-            FXMLLoader fxmlLoader = new FXMLLoader(firstController.class.getResource("/main.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            control = fxmlLoader.getController();
             control.setNumero(numero);
-            control.setPersonaje(personaje);
-            stage.setMaximized(false);
-            stage.setResizable(false);
-            Stage stg = (Stage) vbox.getScene().getWindow();
-            stg.close();
-            stage.show();
-
+            control.updateEnemy();
+            this.enemigo = control.enemy;
         }
         String stat = enemigo.getNombre() + "     HP: " + enemigo.getHp() + "     Def: " + enemigo.getDefensa() + "     Evasion: " + enemigo.getEvasion();
         enemyStats.setText(stat);
+    }
+
+    public void setControlPrincipal(mainController controlPrincipal){
+        this.control = controlPrincipal;
     }
 
 }

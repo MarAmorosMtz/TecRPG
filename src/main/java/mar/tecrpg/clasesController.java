@@ -18,6 +18,8 @@ public class clasesController {
 
     private Personaje personaje;
 
+    mainController controlPrincipal;
+
     @FXML
     private void Sistemas() throws IOException {
         personaje = new IngeSistemas();
@@ -40,6 +42,7 @@ public class clasesController {
         Stage stg = (Stage) btn.getScene().getWindow();
         mainController controller = fxmlLoader.getController();
         controller.setPersonaje(personaje);
+        controller.setControlPrincipal(controller);
         stg.close();
         stage.show();
     }

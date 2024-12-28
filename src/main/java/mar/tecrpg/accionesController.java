@@ -34,6 +34,8 @@ public class accionesController {
 
     ataquesController controller;
 
+    mainController controlPrincipal;
+
     public void setStackPane(StackPane stackPane) {
         this.stackPane = stackPane;
     }
@@ -42,7 +44,9 @@ public class accionesController {
         this.personaje = personaje;
     }
 
-    public void setEnemigo(Enemigo enemigo){ this.enemigo = enemigo; }
+    public void setEnemigo(Enemigo enemigo){
+        this.enemigo = enemigo;
+    }
 
     public void setLabel(Label label){
         this.label = label;
@@ -67,39 +71,46 @@ public class accionesController {
         controller.setEnemyStats(enemyStats);
         controller.setEnemigo(enemigo);
         controller.setNumero(numero);
+        controller.setEnfrentamiento(label);
+        controller.setControlPrincipal(controlPrincipal);
         stackPane.getChildren().setAll(nuevaVista);
     }
 
     @FXML
-    private void huir() throws IOException{
-
-        //int enemyEvasion = enemigo.getEvasion();
-        int enemyEvasion = 10;
-        int playerEvasioin = personaje.getEvasion();
+    private void huir() throws IOException {
+        int enemyEvasion = enemigo.getEvasion();
+        int playerEvasion = personaje.getEvasion();
         int n;
 
-        if(enemyEvasion < playerEvasioin){
+        if (enemyEvasion < playerEvasion) {
             n = 1;
-        }else{
+        } else {
             n = random.nextInt(2) + 1;
         }
 
-        if(n == 1){
+        if (n == 1) {
             numero++;
-            label.setText("Enfrentamiento "+numero);
+            label.setText("Enfrentamiento " + numero);
             System.out.println("huiste");
-        }else {
+
+            // Actualizar enemigo en el controlador principal
+            controlPrincipal.setNumero(numero);
+            controlPrincipal.updateEnemy();
+
+            // Actualizar la referencia del nuevo enemigo en este controlador
+            this.enemigo = controlPrincipal.enemy;
+        } else {
             int damage = personaje.takeDamage(enemigo.dealDamage());
             System.out.println("no huiste.");
-            if(damage == 0){
-                System.out.println("El ataque fallo");
-            }else {
+            if (damage == 0) {
+                System.out.println("El ataque falló");
+            } else {
                 System.out.println("El enemigo te hizo " + damage + " de daño.");
                 updateCharacterStats();
             }
         }
-
     }
+
 
     private void updateCharacterStats() throws IOException {
         String stat = "Lvl: "+personaje.getNivel()+"     HP: "+personaje.getHp()+"     Exp: "+personaje.getExp();
@@ -115,6 +126,10 @@ public class accionesController {
             stg.close();
             stage.show();
         }
+    }
+
+    public void setControlPrincipal(mainController control){
+        this.controlPrincipal = control;
     }
 
 

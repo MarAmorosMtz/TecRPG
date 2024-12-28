@@ -31,6 +31,8 @@ public class mainController {
     @FXML
     ImageView enemyImage;
 
+    mainController controlPrincipal;
+
     accionesController controller;
 
     @FXML
@@ -39,6 +41,7 @@ public class mainController {
             numeroenfrentamiento = 1;
         }
         enfrentamiento.setText("Enfrentamiento "+numeroenfrentamiento);
+
         cargarVista("/acciones.fxml");
 
         if (numeroenfrentamiento == 1){
@@ -61,9 +64,7 @@ public class mainController {
     public void cargarVista(String fxmlPath) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         Parent nuevaVista = loader.load();
-
         controller = loader.getController();
-
         stack.getChildren().setAll(nuevaVista);
     }
 
@@ -87,7 +88,21 @@ public class mainController {
         this.numeroenfrentamiento = numero;
     }
 
-    public void updateEnemy(){
-        enemy = new Guardia();
+    public void updateEnemy() {
+        this.enemy = new Guardia();
+        String stat = enemy.getNombre() + "     HP: " + enemy.getHp() + "     Def: " + enemy.getDefensa() + "     Evasion: " + enemy.getEvasion();
+        enemyStats.setText(stat);
+
+        if (controller != null) {
+            controller.setEnemigo(enemy);
+        }
+    }
+
+
+    public void setControlPrincipal(mainController control){
+        this.controlPrincipal = control;
+        System.out.println("set control principal desde main");
+        System.out.println(control);
+        controller.setControlPrincipal(controlPrincipal);
     }
 }
